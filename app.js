@@ -112,10 +112,10 @@ app.post("/delete", function (req, res) {
   const listName = req.body.listName;
   async function myDeletes() {
     if (listName === "Today") {
-      const deleteItem = await Item.findOneAndDelete({ _id: checkedItemId }); /////
+      const deleteItem = await Item.findOneAndDelete({ _id: checkedItemId }); 
 
       console.log("Deleted item: " + deleteItem.name);
-      res.redirect("/");
+      res.redirect("/"); /////////////////////////
     } else {
       const foundList = await List.findOneAndUpdate(
         { name: listName },
@@ -123,7 +123,9 @@ app.post("/delete", function (req, res) {
       );
       res.redirect("/" + listName);
     }
+    
   }
+  
   myDeletes();
 });
 
