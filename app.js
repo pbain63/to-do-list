@@ -17,7 +17,6 @@ require('dotenv').config();
 const password = process.env.PASS_WORD;
 //
 
-
 mongoose.connect("mongodb+srv://admin-prodip:password@cluster0.6lbsiw4.mongodb.net/todolistDB"); //
 
 const itemsSchema = new mongoose.Schema({
