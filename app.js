@@ -12,7 +12,13 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://admin-prodip:deepqwe@cluster0.6lbsiw4.mongodb.net/todolistDB"); //
+////added these two lines code for .env
+require('dotenv').config();
+const password = process.env.PASS_WORD;
+//
+
+
+mongoose.connect("mongodb+srv://admin-prodip:password@cluster0.6lbsiw4.mongodb.net/todolistDB"); //
 
 const itemsSchema = new mongoose.Schema({
   // new mongoose.Schema() cut in the video
