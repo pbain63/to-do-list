@@ -13,11 +13,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 ////added these two lines code for .env
-require('dotenv').config();
-const password = process.env.PASS_WORD;
+require("dotenv").config();
+const userName = process.env.DB_USER;
+const password = process.env.DB_PASSWORD;
 //
 
-mongoose.connect("mongodb+srv://admin-prodip:password@cluster0.6lbsiw4.mongodb.net/todolistDB"); //
+mongoose.connect("mongodb+srv://" + userName + ":" + password + "@cluster0.6lbsiw4.mongodb.net/todolistDB"); //
 
 const itemsSchema = new mongoose.Schema({
   // new mongoose.Schema() cut in the video
