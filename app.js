@@ -1,5 +1,6 @@
 //jshint esversion:6
 
+require("dotenv").config(); //
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -7,18 +8,24 @@ const _ = require("lodash");
 
 const app = express();
 
+// console.log(process.env.DB_USER); //
+// console.log(process.env.DB_PASSWORD);
+
+const userName = process.env.DB_USER;
+const password = process.env.DB_PASSWORD;
+
 app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-////added these two lines code for .env
-require("dotenv").config();
-const userName = process.env.DB_USER;
-const password = process.env.DB_PASSWORD;
-//
-
-mongoose.connect("mongodb+srv://" + userName + ":" + password + "@cluster0.6lbsiw4.mongodb.net/todolistDB"); //
+mongoose.connect(
+  "mongodb+srv://" +
+  userName +
+    ":" +
+    password +
+    "@cluster0.6lbsiw4.mongodb.net/todolistDB"
+); //
 
 const itemsSchema = new mongoose.Schema({
   // new mongoose.Schema() cut in the video
@@ -47,7 +54,6 @@ const listSchema = new mongoose.Schema({
 });
 
 const List = mongoose.model("List", listSchema);
-
 
 app.get("/", function (req, res) {
   async function myItems() {
@@ -118,7 +124,7 @@ app.post("/delete", function (req, res) {
   const listName = req.body.listName;
   async function myDeletes() {
     if (listName === "Today") {
-      const deleteItem = await Item.findOneAndDelete({ _id: checkedItemId }); 
+      const deleteItem = await Item.findOneAndDelete({ _id: checkedItemId });
 
       console.log("Deleted item: " + deleteItem.name);
       res.redirect("/"); /////////////////////////
@@ -129,9 +135,8 @@ app.post("/delete", function (req, res) {
       );
       res.redirect("/" + listName);
     }
-    
   }
-  
+
   myDeletes();
 });
 
