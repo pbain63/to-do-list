@@ -28,7 +28,7 @@ mongoose.connect(
 ); //
 
 const itemsSchema = new mongoose.Schema({
-  // new mongoose.Schema() cut in the video
+  
   name: String,
 });
 
@@ -125,9 +125,13 @@ app.post("/delete", function (req, res) {
   async function myDeletes() {
     if (listName === "Today") {
       const deleteItem = await Item.findOneAndDelete({ _id: checkedItemId });
-
+      res.redirect("/");
       console.log("Deleted item: " + deleteItem.name);
-      res.redirect("/"); /////////////////////////
+      // console.log(checkedItemId);
+      // if (!deleteItem) {
+      //   res.redirect("/");
+      // }
+       /////////////////////////
     } else {
       const foundList = await List.findOneAndUpdate(
         { name: listName },
