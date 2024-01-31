@@ -8,8 +8,6 @@ const _ = require("lodash");
 
 const app = express();
 
-// console.log(process.env.DB_USER); //
-// console.log(process.env.DB_PASSWORD);
 
 const userName = process.env.DB_USER;
 const password = process.env.DB_PASSWORD;
@@ -112,7 +110,7 @@ app.post("/", function (req, res) {
     async function myLists() {
       const foundList = await List.findOne({ name: listName }).exec();
       foundList.items.push(item);
-      foundList.save().then(() => console.log("list added: " + customListName));
+      foundList.save().then(() => console.log("list added: "));
       res.redirect("/" + listName);
     }
     myLists();
